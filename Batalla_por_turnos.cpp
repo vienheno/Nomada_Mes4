@@ -246,7 +246,6 @@ int main()
         }
         titulo ();
         estadoPersonajes (saludP, nombreP, saludE, nombreE);
-        cout <<"########## Turno de tu oponente ##########"<<endl;
         ataqueEnemigo (ataqueE, saludP, defensaP);
         if (saludP <= 0)
         {
@@ -281,15 +280,16 @@ void instrucciones ()
 void titulo ()
 {
     system ("cls"); //Limpia la pantalla de consola
-    cout <<endl<<"************************************************************************************************************";
-    cout <<R"(
+       
+    cout <<endl<<"\033[31m************************************************************************************************************\033[0m";
+    cout <<"\033[31m"<<R"(
                  ____                                         _         _        _ 
                 / ___|_ __ ___  ___ ___  _____   _____ _ __  | |    ___| |_ __ _| |
                | |   | '__/ _ \/ __/ __|/ _ \ \ / / _ \ '__| | |   / _ \ __/ _` | |
                | |___| | | (_) \__ \__ \ (_) \ V /  __/ |    | |__|  __/ || (_| | |
                 \____|_|  \___/|___/___/\___/ \_/ \___|_|    |_____\___|\__\__,_|_|
-    )"<<endl;
-    cout <<"************************************************************************************************************"<<endl;
+    )"<<"\033[0m"<<endl;
+    cout <<"\033[31m************************************************************************************************************\033[0m"<<endl;
 }
 
 void bienvenida ()
@@ -366,7 +366,7 @@ void estadoPersonajes (int saludP, string nombreP, int saludE, string nombreE)
 void ataquePropio (int ataqueP[], int& saludE, int defensaE)
 {
     int OpAtaque = 0;
-    cout <<"========== Es tu turno ========== "<<endl<<endl;
+    cout << "\033[32m"<<"########## Es tu turno ########## "<< "\033[0m"<<endl<<endl;
     cout <<"Tus Ataques: "<<endl;
     cout <<"(1) Arma de fuego: "<<ataqueP[0]<<setw(20)
          <<"(2) Arma blanca: "<<ataqueP[1]<<setw(27)
@@ -389,6 +389,7 @@ void ataqueEnemigo (int ataqueE[], int &saludP, int defensaP)
     saludP = saludP - ((100 - defensaP))*ataqueE[OpAtaque - 1]/100;
     if (saludP < 0) saludP = 0;
 
+    cout << "\033[33m"<<"########## Turno de tu oponente ##########"<< "\033[0m"<<endl;
     switch (OpAtaque)
     {
     case 1: cout <<endl<<"Tu oponente te esta atacando con Arma de fuego"<<endl;
@@ -401,7 +402,7 @@ void ataqueEnemigo (int ataqueE[], int &saludP, int defensaP)
     default:
         break;
     }
-    cout <<"************************************************************************************************************"<<endl<<endl;
+    cout <<endl<<"************************************************************************************************************"<<endl;
     //continuarJuego ();
 
 }
@@ -413,7 +414,7 @@ void Continuar_Guardar (int saludP, int saludE, string nombreP, string nombreE, 
     int opcion = 0; 
     do
     {
-        cout << "Elija una opcion: ";
+        cout <<endl<< "Elija una opcion: ";
         cin >> opcion;
     }   while (opcion < 1 || opcion > 2);
 
@@ -441,7 +442,11 @@ void Continuar_Guardar (int saludP, int saludE, string nombreP, string nombreE, 
                 archivoOut.close();
             }
             else cout <<"El archivo no se ha guardado correctamente"<<endl;
-            cout <<"Partida Guardada"<<endl;
+            titulo ();
+            estadoPersonajes (saludP, nombreP, saludE, nombreE);
+            cout<<"\033[35m"<<"##################"<<endl
+                <<"Partida Guardada"<<endl
+                <<"##################"<<"\033[0m"<<endl<<endl;
             //continuarJuego ();
             exit(0);
         break;
@@ -491,26 +496,26 @@ void cargarPartida (int& saludP, int& saludE, string& nombreP, string& nombreE, 
 
 void mensajeGanaste ()
 {
-    cout <<endl<<R"(
+    cout <<"\033[34m"<<endl<<R"(
                   __   __           __        ___         _ _ 
                   \ \ / /__  _   _  \ \      / (_)_ __   | | |
                    \ V / _ \| | | |  \ \ /\ / /| | '_ \  | | |
                     | | (_) | |_| |   \ V  V / | | | | | |_|_|
                     |_|\___/ \__,_|    \_/\_/  |_|_| |_| (_|_)
-    )"<<endl;
+    )"<<"\033[0m"<<endl;
 
 }
 
 void mensajePerdiste ()
 {
-    cout <<endl<<R"(
+    cout <<"\033[35m"<<endl<<R"(
                  __   __            _              _             __
                  \ \ / /__  _   _  | |    ___  ___| |_      _   / /
                   \ V / _ \| | | | | |   / _ \/ __| __|    (_) | | 
                    | | (_) | |_| | | |__| (_) \__ \ |_      _  | | 
                    |_|\___/ \__,_| |_____\___/|___/\__|    (_) | | 
                                                                 \_\
-    )"<<endl;
+    )"<<"\033[0m"<<endl;
 
 }
 

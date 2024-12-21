@@ -1,12 +1,12 @@
-63
-60
+48
+52
 Lara Croft
-Jason Bourne
+Natasha Romanoff
 35
 40
 25
-45
+40
 30
-35
+25
 65
-60
+75
