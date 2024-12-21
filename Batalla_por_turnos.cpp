@@ -3,6 +3,7 @@
 #include <cmath>
 #include <iomanip>
 #include <fstream>
+#include <string>
 using namespace std;
 
 struct Personajes {
@@ -23,6 +24,8 @@ void personajesElegidos (string nombreP, string nombreE);
 void estadoPersonajes (int saludP, string nombreP, int saludE, string nombreE);
 void ataquePropio (int ataqueP[], int& saludE, int defensaE);
 void ataqueEnemigo (int ataqueE[], int& saludP, int defensaP);
+void Continuar_Guardar (int saludP, int saludE, string nombreP, string nombreE, int ataqueP[], int ataqueE[], int defensaP, int defensaE);
+void cargarPartida (int &saludP, int& saludE, string& nombreP, string& nombreE, int ataqueP[], int ataqueE[], int& defensaP, int& defensaE);
 void mensajeGanaste ();
 void mensajePerdiste ();
 
@@ -89,117 +92,145 @@ int main()
     instrucciones ();
     continuarJuego ();
     titulo ();
-    ListaPersonajes (p1, p2, p3, p4, p5);
-    personajePropio = eleccionPersonaje(p1, p2, p3, p4, p5);
-    personajeEnemigo = eleccionEnemigo(p1, p2, p3, p4, p5, personajePropio);
+    cout <<endl<< "¿Que desea hacer?: "<<endl<<endl;
+    cout << "1. Nueva partida"<<endl;
+    cout << "2. Cargar partida"<<endl; 
+    cout << "3. Salir"<<endl;
 
-    switch (personajePropio)
+    int opcion = 0;       
+    do
     {
-    case 1:
-        nombreP = p1.nombre;
-        saludP = p1.salud;
-        ataqueP[0] = p1.ataque[0];
-        ataqueP[1] = p1.ataque[1];
-        ataqueP[2] = p1.ataque[2];
-        defensaP = p1.defensa;
-        break;
-    
-    case 2:
-        nombreP = p2.nombre;
-        saludP = p2.salud;
-        ataqueP[0] = p2.ataque[0];
-        ataqueP[1] = p2.ataque[1];
-        ataqueP[2] = p2.ataque[2];
-        defensaP = p2.defensa;
-        break;
-    
-    case 3:
-        nombreP = p3.nombre;
-        saludP = p3.salud;
-        ataqueP[0] = p3.ataque[0];
-        ataqueP[1] = p3.ataque[1];
-        ataqueP[2] = p3.ataque[2];
-        defensaP = p3.defensa;
-        break;
-    
-    case 4:
-        nombreP = p4.nombre;
-        saludP = p4.salud;
-        ataqueP[0] = p4.ataque[0];
-        ataqueP[1] = p4.ataque[1];
-        ataqueP[2] = p4.ataque[2];
-        defensaP = p4.defensa;
-        break;
-    
-    case 5:
-        nombreP = p5.nombre;
-        saludP = p5.salud;
-        ataqueP[0] = p5.ataque[0];
-        ataqueP[1] = p5.ataque[1];
-        ataqueP[2] = p5.ataque[2];
-        defensaP = p5.defensa;
-        break;
-    
-    default:
-        break;
+        cout <<endl<< "Elija una opcion: ";
+        cin >>opcion;
+    }   while (opcion < 1 || opcion > 3);
+
+    switch (opcion)
+    {
+        case 1:
+            titulo ();
+            ListaPersonajes (p1, p2, p3, p4, p5);
+            personajePropio = eleccionPersonaje(p1, p2, p3, p4, p5);
+            personajeEnemigo = eleccionEnemigo(p1, p2, p3, p4, p5, personajePropio);
+
+            switch (personajePropio)
+            {
+            case 1:
+                nombreP = p1.nombre;
+                saludP = p1.salud;
+                ataqueP[0] = p1.ataque[0];
+                ataqueP[1] = p1.ataque[1];
+                ataqueP[2] = p1.ataque[2];
+                defensaP = p1.defensa;
+                break;
+            
+            case 2:
+                nombreP = p2.nombre;
+                saludP = p2.salud;
+                ataqueP[0] = p2.ataque[0];
+                ataqueP[1] = p2.ataque[1];
+                ataqueP[2] = p2.ataque[2];
+                defensaP = p2.defensa;
+                break;
+            
+            case 3:
+                nombreP = p3.nombre;
+                saludP = p3.salud;
+                ataqueP[0] = p3.ataque[0];
+                ataqueP[1] = p3.ataque[1];
+                ataqueP[2] = p3.ataque[2];
+                defensaP = p3.defensa;
+                break;
+            
+            case 4:
+                nombreP = p4.nombre;
+                saludP = p4.salud;
+                ataqueP[0] = p4.ataque[0];
+                ataqueP[1] = p4.ataque[1];
+                ataqueP[2] = p4.ataque[2];
+                defensaP = p4.defensa;
+                break;
+            
+            case 5:
+                nombreP = p5.nombre;
+                saludP = p5.salud;
+                ataqueP[0] = p5.ataque[0];
+                ataqueP[1] = p5.ataque[1];
+                ataqueP[2] = p5.ataque[2];
+                defensaP = p5.defensa;
+                break;
+            
+            default:
+                break;
+            }
+
+            switch (personajeEnemigo)
+            {
+            case 1:
+                nombreE = p1.nombre;
+                saludE = p1.salud;
+                ataqueE[0] = p1.ataque[0];
+                ataqueE[1] = p1.ataque[1];
+                ataqueE[2] = p1.ataque[2];
+                defensaE = p1.defensa;
+                break;
+            
+            case 2:
+                nombreE = p2.nombre;
+                saludE = p2.salud;
+                ataqueE[0] = p2.ataque[0];
+                ataqueE[1] = p2.ataque[1];
+                ataqueE[2] = p2.ataque[2];
+                defensaE = p2.defensa;
+                break;
+            
+            case 3:
+                nombreE = p3.nombre;
+                saludE = p3.salud;
+                ataqueE[0] = p3.ataque[0];
+                ataqueE[1] = p3.ataque[1];
+                ataqueE[2] = p3.ataque[2];
+                defensaE = p3.defensa;
+                break;
+            
+            case 4:
+                nombreE = p4.nombre;
+                saludE = p4.salud;
+                ataqueE[0] = p4.ataque[0];
+                ataqueE[1] = p4.ataque[1];
+                ataqueE[2] = p4.ataque[2];
+                defensaE = p4.defensa;
+                break;
+            
+            case 5:
+                nombreE = p5.nombre;
+                saludE = p5.salud;
+                ataqueE[0] = p5.ataque[0];
+                ataqueE[1] = p5.ataque[1];
+                ataqueE[2] = p5.ataque[2];
+                defensaE = p5.defensa;
+                break;
+            
+            default:
+                break;
+            }
+
+            titulo ();
+            personajesElegidos(nombreP, nombreE);
+            continuarJuego ();
+
+            break;   
+
+        case 2:
+            titulo ();
+            cargarPartida (saludP, saludE, nombreP, nombreE, ataqueP, ataqueE, defensaP, defensaE);
+            continuarJuego ();
+            break;
+        
+        case 3:
+            exit(0);
+            break;
     }
 
-    switch (personajeEnemigo)
-    {
-    case 1:
-        nombreE = p1.nombre;
-        saludE = p1.salud;
-        ataqueE[0] = p1.ataque[0];
-        ataqueE[1] = p1.ataque[1];
-        ataqueE[2] = p1.ataque[2];
-        defensaE = p1.defensa;
-        break;
-    
-    case 2:
-        nombreE = p2.nombre;
-        saludE = p2.salud;
-        ataqueE[0] = p2.ataque[0];
-        ataqueE[1] = p2.ataque[1];
-        ataqueE[2] = p2.ataque[2];
-        defensaE = p2.defensa;
-        break;
-    
-    case 3:
-        nombreE = p3.nombre;
-        saludE = p3.salud;
-        ataqueE[0] = p3.ataque[0];
-        ataqueE[1] = p3.ataque[1];
-        ataqueE[2] = p3.ataque[2];
-        defensaE = p3.defensa;
-        break;
-    
-    case 4:
-        nombreE = p4.nombre;
-        saludE = p4.salud;
-        ataqueE[0] = p4.ataque[0];
-        ataqueE[1] = p4.ataque[1];
-        ataqueE[2] = p4.ataque[2];
-        defensaE = p4.defensa;
-        break;
-    
-    case 5:
-        nombreE = p5.nombre;
-        saludE = p5.salud;
-        ataqueE[0] = p5.ataque[0];
-        ataqueE[1] = p5.ataque[1];
-        ataqueE[2] = p5.ataque[2];
-        defensaE = p5.defensa;
-        break;
-    
-    default:
-        break;
-    }
-
-    titulo ();
-    personajesElegidos(nombreP, nombreE);
-    continuarJuego ();
-   
-    
     do
     {
         titulo ();
@@ -224,7 +255,9 @@ int main()
             mensajePerdiste();
             //continuarJuego ();
             break;
-        }    
+        }
+        
+        Continuar_Guardar (saludP, saludE, nombreP, nombreE, ataqueP, ataqueE, defensaP, defensaE);    
       
     } while (saludP > 0 || saludE > 0);
 
@@ -348,7 +381,7 @@ void ataquePropio (int ataqueP[], int& saludE, int defensaE)
     if (saludE < 0) saludE = 0;
 }
 
-void ataqueEnemigo (int ataqueE[], int& saludP, int defensaP)
+void ataqueEnemigo (int ataqueE[], int &saludP, int defensaP)
 {
     int OpAtaque = 0;
     srand(time(0));
@@ -368,7 +401,91 @@ void ataqueEnemigo (int ataqueE[], int& saludP, int defensaP)
     default:
         break;
     }
-    continuarJuego ();
+    cout <<"************************************************************************************************************"<<endl<<endl;
+    //continuarJuego ();
+
+}
+
+void Continuar_Guardar (int saludP, int saludE, string nombreP, string nombreE, int ataqueP[], int ataqueE[], int defensaP, int defensaE)
+{
+    cout << "1. Continuar jugando"<<endl;
+    cout << "2. Guardar partida y salir"<<endl;
+    int opcion = 0; 
+    do
+    {
+        cout << "Elija una opcion: ";
+        cin >> opcion;
+    }   while (opcion < 1 || opcion > 2);
+
+    switch (opcion)
+    {
+        case 1:
+        break;
+
+        case 2:
+            ofstream archivoOut ("Partida_guardada.txt");
+            if (archivoOut.is_open())
+            {
+                archivoOut <<saludP<<endl;
+                archivoOut <<saludE<<endl;
+                archivoOut <<nombreP<<endl;
+                archivoOut <<nombreE<<endl;
+                archivoOut <<ataqueP[0]<<endl;
+                archivoOut <<ataqueP[1]<<endl;
+                archivoOut <<ataqueP[2]<<endl;
+                archivoOut <<ataqueE[0]<<endl;
+                archivoOut <<ataqueE[1]<<endl;
+                archivoOut <<ataqueE[2]<<endl;
+                archivoOut <<defensaP<<endl;
+                archivoOut <<defensaE<<endl;
+                archivoOut.close();
+            }
+            else cout <<"El archivo no se ha guardado correctamente"<<endl;
+            cout <<"Partida Guardada"<<endl;
+            //continuarJuego ();
+            exit(0);
+        break;
+    }
+
+}
+
+void cargarPartida (int& saludP, int& saludE, string& nombreP, string& nombreE, int ataqueP[], int ataqueE[], int& defensaP, int& defensaE)
+{
+   string lineaSalud;
+   ifstream archivoIn ("Partida_guardada.txt");
+   if (archivoIn.is_open())
+   {
+       getline(archivoIn, lineaSalud);
+       saludP = stoi(lineaSalud);
+       getline(archivoIn, lineaSalud);
+       saludE = stoi(lineaSalud);
+       getline(archivoIn, nombreP);
+       getline(archivoIn, nombreE);
+       getline(archivoIn, lineaSalud);
+       ataqueP[0] = stoi(lineaSalud);
+       getline(archivoIn, lineaSalud);
+       ataqueP[1] = stoi(lineaSalud);
+       getline(archivoIn, lineaSalud);
+       ataqueP[2] = stoi(lineaSalud);
+       getline(archivoIn, lineaSalud);
+       ataqueE[0] = stoi(lineaSalud);
+       getline(archivoIn, lineaSalud);
+       ataqueE[1] = stoi(lineaSalud);
+       getline(archivoIn, lineaSalud);
+       ataqueE[2] = stoi(lineaSalud);
+       getline(archivoIn, lineaSalud);
+       defensaP = stoi(lineaSalud);
+       getline(archivoIn, lineaSalud);
+       defensaE = stoi(lineaSalud);
+       archivoIn.close();
+       cout <<"Tu personaje es "<<nombreP<<", su salud es "<<saludP<<" y tu defensa "<<defensaP<<endl;
+       cout <<"Tu oponente es "<<nombreE<<" y su salud es "<<saludE<<" y su defensa "<<defensaE<<endl;
+   }
+   else 
+   {
+        cout <<"El archivo no se ha cargado correctamente"<<endl;
+        exit(0);
+   }
 
 }
 
