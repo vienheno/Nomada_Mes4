@@ -1,12 +1,12 @@
-48
-52
-Lara Croft
+84
+90
+Ethan Hunt
 Natasha Romanoff
-35
-40
+30
+20
 25
 40
 30
 25
-65
+70
 75
