@@ -92,7 +92,7 @@ int main()
     instrucciones ();
     continuarJuego ();
     titulo ();
-    cout <<endl<< "¿Que desea hacer?: "<<endl<<endl;
+    cout <<endl<< "OPCIONES: "<<endl<<endl;
     cout << "1. Nueva partida"<<endl;
     cout << "2. Cargar partida"<<endl; 
     cout << "3. Salir"<<endl;
